@@ -5,6 +5,7 @@
 
 from plover.machine.geminipr import GeminiPr
 from plover.machine.txbolt import TxBolt
+from plover.machine.nonkeyboard import NonKeyboard
 from plover.machine.keyboard import Keyboard
 from plover.machine.stentura import Stentura
 from plover.machine.passport import Passport
@@ -50,6 +51,7 @@ machine_registry.register('TX Bolt', TxBolt)
 machine_registry.register('Stentura', Stentura)
 machine_registry.register('Passport', Passport)
 machine_registry.register('Treal', Treal)
+machine_registry.register('NonKeyboard', NonKeyboard)
 
 # Legacy configuration
 machine_registry.add_alias('Microsoft Sidewinder X4', 'Keyboard')

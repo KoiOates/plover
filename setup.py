@@ -105,7 +105,7 @@ class Launch(setuptools.Command):
         # Make sure metadata are up-to-date first.
         self.run_command('egg_info')
         reload_module(pkg_resources)
-        from plover.main import main
+        from plover.main2 import main
         sys.argv = [' '.join(sys.argv[0:2]) + ' --'] + self.args
         sys.exit(main())
 
