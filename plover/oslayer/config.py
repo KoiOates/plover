@@ -3,7 +3,7 @@
 
 """Platform dependent configuration."""
 
-import appdirs
+#import appdirs
 import os
 from os.path import realpath, join, dirname, abspath, isfile, pardir
 import sys
@@ -28,4 +28,5 @@ ASSETS_DIR = pkg_resources.resource_filename('plover', 'assets')
 if isfile(join(PROGRAM_DIR, 'plover.cfg')):
     CONFIG_DIR = PROGRAM_DIR
 else:
-    CONFIG_DIR = appdirs.user_data_dir('tplover', 'tplover')
+    raise(Exception("Needs plover.cfg in project root directory"))
+    #CONFIG_DIR = appdirs.user_data_dir('tplover', 'tplover')

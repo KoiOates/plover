@@ -266,7 +266,7 @@ if sys.platform.startswith('win32'):
     setup_requires.append('PyInstaller==3.1.1')
     cmdclass['bdist_win'] = BinaryDistWin
 
-setup_requires.append('pytest')
+#setup_requires.append('pytest')
 
 dependency_links = [
    'git+https://github.com/benoit-pierre/pyobjc.git@pyobjc-3.1.1+plover#egg=pyobjc-core&subdirectory=pyobjc-core',

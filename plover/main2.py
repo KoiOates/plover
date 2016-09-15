@@ -14,7 +14,6 @@ import argparse
 
 if sys.platform.startswith('darwin'):
     import appnope
-import wx
 
 import plover.tui.main
 import plover.oslayer.processlock

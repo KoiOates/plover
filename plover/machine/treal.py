@@ -8,7 +8,7 @@
 
 from time import sleep
 
-import hid
+#import hid
 
 from plover import log
 from plover.machine.base import ThreadedStenotypeBase
