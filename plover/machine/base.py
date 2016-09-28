@@ -6,7 +6,7 @@
 
 """Base classes for machine types. Do not use directly."""
 
-import serial
+#import serial
 import threading
 
 from plover import log
