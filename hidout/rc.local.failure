@@ -1,0 +1,38 @@
+#!/bin/sh
+#
+# Tried starting it headless before X could load, but
+# this was not the right way to do that. Saving it in
+# case it makes more sense later.
+
+
+headless_start_flag="/home/chip/.do_steno"
+# for sudo -u $user lines
+user="chip"
+plover_dir="/home/chip/p/plover/"
+plover_fifo_input="$plover_dir/hidout/stdin_fifo_dummy.py"
+
+# Start the hid code in the background regardless in case I 
+# need to do testing from the GUI.
+$plover_dir/hidout/starthid
+sudo -u $user mkfifo /tmp/plovin
+sudo -u $user mkfifo /tmp/plovout
+
+tail -f /tmp/plovout | $plover_dir/hidout/hid_gadget_test /dev/hidg0 keyboard >> $plover_dir/hidout/hid_gadget.log 2>&1 &
+# The hid testing program got unstable with my quick fix to the c code,
+# so using tail -f til I understand better how to do fifos with it internally.
+
+if [ -e "$headless_start_flag" ]
+then
+    # take out the flag file first so next restart is normal in case of mistakes
+    rm "$headless_start_flag"
+    # recompile the hid gadget demo in case new key definitions added
+    #sudo -u $user gcc $plover_dir/hidout/hid_gadget_test.c -o $plover_dir/hidout/hid_gadget_test
+    echo "Starting plover in the background"
+    sudo -u $user $plover_dir/launch.sh &
+    echo "Input loop (should start before X launches)"
+    sudo -u $user $plover_fifo_input
+else
+    echo "$headless_start_flag does not exist, starting normally"
+fi
+
+exit 0

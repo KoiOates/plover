@@ -1,0 +1,25 @@
+#!/bin/sh -e
+#
+# rc.local
+#
+# This script is executed at the end of each multiuser runlevel.
+# Make sure that the script will "exit 0" on success or any other
+# value on error.
+#
+# In order to enable or disable this script just change the execution
+# bits.
+#
+# By default this script does nothing.
+
+user="chip"
+plover_dir="/home/chip/p/plover/"
+
+$plover_dir/hidout/starthid
+sudo -u $user mkfifo /tmp/plovin
+sudo -u $user mkfifo /tmp/plovout
+
+tail -f /tmp/plovout | $plover_dir/hidout/hid_gadget_test /dev/hidg0 keyboard >> $plover_dir/hidout/hid_gadget.log 2>&1 &
+# The hid testing program got unstable with my quick fix to the c code,
+# so using tail -f til I understand better how to do fifos with it internally.
+
+exit 0
