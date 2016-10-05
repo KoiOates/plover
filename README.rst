@@ -4,6 +4,7 @@ fork of Plover in particular.
 
 Ploverducken: Prebaked Steno Translation on a C.H.I.P.
 =====================================================
+**(now with a side of Pi ... gluten free and paleo friendly!)**
 
 This is basically an experimental Plover, modified to reduce
 dependencies and to leave out the GUI. The oslayer section
@@ -17,6 +18,12 @@ This is still very experimental, but here's how to play with it
 if anyone else (including my future self) wants to use it as an
 example of how to use the power of Plover without having to
 have run the software on all the computers you need to use.
+
+The following steps were almost the same getting this to work on
+a Raspberry Pi Zero, with differences in bold type. Mostly just
+had to change the last line of the starthid script.
+Tested this with a UART to USB cable to log in to the Pi and the
+although I'm not sure if there's
 
 Step 0: Download, checkout.
 ---------------------------
@@ -37,7 +44,8 @@ Step 1: Compile kernel with necessary modules.
 ----------------------------------------------
 
 This may not be necessary on all Linux running gadgets,
-(still waiting to play with Pi Zero) but it was a necessary
+and definitely **is not necessary on Raspberry Pi Zero, latest Rasbian version**,
+but it was a necessary
 step before my PocketCHIP could be set up to send keystrokes.
 
 Here is an excellent step by step procedure for cross compiling
@@ -81,9 +89,9 @@ if necessary and plover_dir to reflect the path where you have
 this repository cloned:
 
 
-user="chip"
+user="chip" # or user="pi" as the case may be
 
-plover_dir="/home/chip/plover/"
+plover_dir="/home/chip/plover/" #or /home/pi/plover
 
 
 $plover_dir/hidout/starthid
@@ -106,6 +114,8 @@ default, but this conflicts with the usb_f_hid module. Make sure
 you're set up where you don't need to serial into the C.H.I.P.
 via micro USB port, and then edit /etc/modules to get rid of or
 comment out the "g_serial" line, and add "usb_f_hid" in its place. Restart the C.H.I.P.
+
+On **Raspberry Pi**, I believe a "dwc2" line is also necessary in /etc/modules.
 
 Step 3: Run Plover and test the input and output.
 -------------------------------------------------
@@ -145,3 +155,7 @@ I needed to put this info up anyway in case I end up bricking my
 PocketCHIP in my mad quest to turn it into a brain for an old
 Stenograph writer, but I hope this will save other people
 some trouble figuring out how to do simliar projects.
+
+Here's a YouTube video of me doing absurd things with both of these gadgets:
+
+https://www.youtube.com/watch?v=cNcA81tYH-M
